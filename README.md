@@ -2,4 +2,4 @@
 [![Actions Status](https://github.com/nofcngway/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/nofcngway/frontend-project-12/actions)
 
 ## App
-[chat]https://chat-qi9g.onrender.com/)
+[chat](https://chat-qi9g.onrender.com/)
