@@ -5,19 +5,20 @@ import Button from "react-bootstrap/Button";
 import * as Yup from 'yup';
 import { useNavigate, Navigate } from "react-router-dom";
 import { loginUser } from "../../api/login.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../../store/slices/authSlice";
 
 const SignupSchema = Yup.object().shape({
-  username: Yup.string()
-    .required('Введите юзернейм'),
-  password: Yup.string()
-    .required('Введите пароль'),
+  username: Yup.string().required('Введите юзернейм'),
+  password: Yup.string().required('Введите пароль'),
 });
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-    if (token) {
+    if (isAuthenticated) {
       return <Navigate to={`/`} />;
     }
 
@@ -29,7 +30,11 @@ const LoginPage = () => {
           validationSchema={SignupSchema}
           onSubmit={async (values, { setSubmitting }) => {
             try {
-              await loginUser(values.username, values.password);
+              const data = await loginUser(values.username, values.password);
+              dispatch(setCredentials({
+                token: data.token,
+                username: values.username,
+              }));
               navigate("/");
             } catch (err) {
               console.log(err);
