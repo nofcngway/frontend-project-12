@@ -2,9 +2,10 @@ import { Formik, Form as FormikForm, Field } from "formik";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import * as Yup from 'yup';
 import { useNavigate, Navigate } from "react-router-dom";
-import { loginUser } from "../../api/login.js";
+import { loginUser } from "../../api/auth.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../store/slices/authSlice";
 
@@ -28,7 +29,8 @@ const LoginPage = () => {
         <Formik
           initialValues={{ username: "", password: "" }}
           validationSchema={SignupSchema}
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting, setStatus }) => {
+            setStatus(null);
             try {
               const data = await loginUser(values.username, values.password);
               dispatch(setCredentials({
@@ -37,14 +39,21 @@ const LoginPage = () => {
               }));
               navigate("/");
             } catch (err) {
-              console.log(err);
+              if (err.response.status === 401) {
+                setStatus('Неверный логин или пароль')
+              }
             } finally {
               setSubmitting(false);
             }
           }}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({ isSubmitting, errors, touched, status }) => (
             <FormikForm>
+              {status && (
+                <Alert variant="danger" className="mb-3">
+                  {status}
+                </Alert>
+              )}
               <FloatingLabel
                 controlId="floatingUsername"
                 label="Ваш никнейм"
