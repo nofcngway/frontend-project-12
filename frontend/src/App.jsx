@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar/NavBar.jsx";
 
 function App() {
   return (
-    <>
+    <div className="d-flex flex-column h-100">
       <BrowserRouter>
         <NavBar />
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 

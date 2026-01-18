@@ -16,9 +16,9 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar className="bg-body-tertiary">
+    <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <Container>
-        <Navbar.Brand href="/login">Hexlet Chat</Navbar.Brand>
+        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
         {isAuthenticated && (
           <Button type="primary" onClick={handleLogout}>Выйти</Button>
         )}
