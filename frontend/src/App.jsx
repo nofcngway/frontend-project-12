@@ -6,17 +6,16 @@ import NavBar from "./components/NavBar/NavBar.jsx";
 
 function App() {
   return (
-    <div className="d-flex flex-column h-100">
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="d-flex flex-column h-100">
         <NavBar />
-
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<MainPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   )
 }
 

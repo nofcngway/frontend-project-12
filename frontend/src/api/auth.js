@@ -1,4 +1,3 @@
-
 import api from "./index.js";
 
 export const loginUser = async (username, password) => {
