@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom"
-import LoginPage from "./pages/Login/LoginPage.jsx";
-import NotFoundPage from "./pages/NotFound/NotFoundPage.jsx";
-import MainPage from "./pages/MainPage/MainPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+import MainPage from "./pages/MainPage.jsx";
 import NavBar from "./components/NavBar/NavBar.jsx";
 
 function App() {

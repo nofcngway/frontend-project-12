@@ -4,10 +4,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { useNavigate, Navigate } from "react-router-dom";
-import { loginUser } from "../../api/auth.js";
+import { loginUser } from "../api/auth.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../../store/slices/authSlice";
-import { loginSchema } from "../../schemas/validationSchema.js";
+import { setCredentials } from "../store/slices/authSlice.js";
+import { loginSchema } from "../schemas/validationSchema.js";
 
 const LoginPage = () => {
     const navigate = useNavigate();

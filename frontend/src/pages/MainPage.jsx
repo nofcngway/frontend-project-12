@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getChannels } from "../../api/channels.js";
-import { getMessages } from "../../api/messages.js";
-import { setChannels, setMessages, addMessage } from "../../store/slices/chatSlice.js";
-import { socket } from "../../socket.js";
-import ChannelsList from "../../components/Channels/ChannelsList.jsx";
-import MessagesList from "../../components/Messages/MessagesList.jsx";
-import MessageForm from "../../components/Messages/MessageForm.jsx";
+import { getChannels } from "../api/channels.js";
+import { getMessages } from "../api/messages.js";
+import { setChannels, setMessages, addMessage } from "../store/slices/chatSlice.js";
+import { socket } from "../socket.js";
+import ChannelsList from "../components/Channels/ChannelsList.jsx";
+import MessagesList from "../components/Messages/MessagesList.jsx";
+import MessageForm from "../components/Messages/MessageForm.jsx";
 
 const MainPage = () => {
   const dispatch = useDispatch();
