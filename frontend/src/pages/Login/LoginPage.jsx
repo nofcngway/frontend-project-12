@@ -3,16 +3,11 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import * as Yup from 'yup';
 import { useNavigate, Navigate } from "react-router-dom";
 import { loginUser } from "../../api/auth.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../store/slices/authSlice";
-
-const SignupSchema = Yup.object().shape({
-  username: Yup.string().required('Введите юзернейм'),
-  password: Yup.string().required('Введите пароль'),
-});
+import { loginSchema } from "../../schemas/validationSchema.js";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -28,7 +23,7 @@ const LoginPage = () => {
         <h1>Войти</h1>
         <Formik
           initialValues={{ username: "", password: "" }}
-          validationSchema={SignupSchema}
+          validationSchema={loginSchema}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
             setStatus(null);
             try {

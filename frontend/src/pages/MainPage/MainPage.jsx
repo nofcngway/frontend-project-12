@@ -44,7 +44,7 @@ const MainPage = () => {
   }, [dispatch, isAuthenticated]);
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <Navigate to={"/login"} />;
   }
 
   return (

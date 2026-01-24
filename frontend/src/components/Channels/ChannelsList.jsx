@@ -1,9 +1,17 @@
 import { Button } from "react-bootstrap";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import ChannelItem from "./ChannelItem";
+import AddChannelModal from "../Modals/AddChannelModal.jsx";
+import RemoveChannelModal from "../Modals/RemoveChannelModal.jsx";
+import EditChannelModal from "../Modals/EditChannelModal.jsx";
 
 const ChannelsList = () => {
     const channels = useSelector((state) => state.chat.channels);
+    const [modalInfo, setModalInfo] = useState({ type: null, channel: null });
+
+    const handleOpenModal = (type, channel = null) => setModalInfo({ type, channel });
+    const handleCloseModal = () => setModalInfo({ type: null, channel: null });
 
     return (
         <div className="d-flex flex-column h-100">
@@ -13,6 +21,7 @@ const ChannelsList = () => {
                     type="button"
                     variant="group-vertical"
                     className="p-0 text-primary"
+                    onClick={() => handleOpenModal('add')}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -26,6 +35,7 @@ const ChannelsList = () => {
                     </svg>
                     <span className="visually-hidden">+</span>
                 </Button>
+
             </div>
 
             <ul
@@ -33,9 +43,28 @@ const ChannelsList = () => {
                 className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
             >
                 {channels.map((channel) => (
-                    <ChannelItem key={channel.id} channel={channel} />
+                    <ChannelItem
+                        key={channel.id}
+                        channel={channel}
+                        onOpenModal={handleOpenModal}
+                    />
                 ))}
             </ul>
+            <AddChannelModal show={modalInfo.type === 'add'} onHide={handleCloseModal} />
+            {modalInfo.type === 'remove' && (
+                <RemoveChannelModal
+                    show={true}
+                    onHide={handleCloseModal}
+                    channelId={modalInfo.channel?.id}
+                />
+            )}
+            {modalInfo.type === 'rename' && (
+                <EditChannelModal
+                    show={true}
+                    onHide={handleCloseModal}
+                    channel={modalInfo.channel}
+                />
+            )}
         </div>
     );
 };

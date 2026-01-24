@@ -15,7 +15,7 @@ export const editChannel = async (id, chanel) => {
   return response.data;
 };
 
-const removeChannel = async (id) => {
+export const removeChannel = async (id) => {
   const response = await api.delete(`/channels/${id}`);
   return response.data;
 }

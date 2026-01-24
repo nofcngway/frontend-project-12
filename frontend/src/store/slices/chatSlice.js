@@ -19,6 +19,24 @@ const chatSlice = createSlice({
     setCurrentChannel: (state, action) => {
       state.currentChannelId = action.payload;
     },
+    addNewChannel: (state, action) => {
+      state.channels.push(action.payload);
+    },
+    removeChannel: (state, action) => {
+      const channelId = action.payload;
+      state.channels = state.channels.filter((channel) => channel.id !== channelId);
+      state.messages = state.messages.filter((message) => message.channelId !== channelId);
+      if (state.currentChannelId === channelId) {
+        state.currentChannelId = '1';
+      }
+    },
+    renameChannel: (state, action) => {
+      const { id, name } = action.payload;
+      const channel = state.channels.find((channel) => channel.id === id);
+      if (channel) {
+        channel.name = name;
+      }
+    },
     setMessages: (state, action) => {
       state.messages = action.payload;
     },
@@ -31,7 +49,10 @@ const chatSlice = createSlice({
 export const {
   setChannels,
   setCurrentChannel,
+  addNewChannel,
   setMessages,
   addMessage,
+  removeChannel,
+  renameChannel,
 } = chatSlice.actions;
 export default chatSlice.reducer;
