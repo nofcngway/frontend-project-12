@@ -5,14 +5,17 @@ export const getChannels = async () => {
   return response.data;
 };
 
-export const addChannel = async () => {
-  return null
+export const addChannel = async (chanel) => {
+  const response = await api.post("/channels", chanel);
+  return response.data;
 };
 
-export const editChannel = async () => {
-  return null
+export const editChannel = async (id, chanel) => {
+  const response = await api.post(`/channels/${id}`, chanel);
+  return response.data;
 };
 
-const removeChannel = async () => {
-  return null
+const removeChannel = async (id) => {
+  const response = await api.delete(`/channels/${id}`);
+  return response.data;
 }
