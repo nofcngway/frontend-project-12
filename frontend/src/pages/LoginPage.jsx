@@ -22,7 +22,10 @@ const LoginPage = () => {
       <div>
         <h1>Войти</h1>
         <Formik
-          initialValues={{ username: "", password: "" }}
+          initialValues={{
+            username: "",
+            password: "",
+          }}
           validationSchema={loginSchema}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
             setStatus(null);
@@ -69,6 +72,7 @@ const LoginPage = () => {
               <FloatingLabel
                 controlId="floatingPassword"
                 label="Пароль"
+                className="mb-3"
               >
                 <Form.Control
                   as={Field}
@@ -92,6 +96,12 @@ const LoginPage = () => {
             </FormikForm>
           )}
         </Formik>
+        <div>
+          <div className='text-center'>
+            <span>Нет аккаунта?</span>
+            <a href="/signup">Регистрация</a>
+          </div>
+        </div>
       </div>
 
     );

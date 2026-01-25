@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -27,4 +27,4 @@ const NavBar = () => {
   )
 };
 
-export default NavBar;
+export default Header;
