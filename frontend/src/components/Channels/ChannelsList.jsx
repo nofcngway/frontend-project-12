@@ -5,10 +5,12 @@ import ChannelItem from "./ChannelItem";
 import AddChannelModal from "../Modals/AddChannelModal.jsx";
 import RemoveChannelModal from "../Modals/RemoveChannelModal.jsx";
 import EditChannelModal from "../Modals/EditChannelModal.jsx";
+import { useTranslation } from "react-i18next";
 
 const ChannelsList = () => {
     const channels = useSelector((state) => state.chat.channels);
     const [modalInfo, setModalInfo] = useState({ type: null, channel: null });
+    const { t } = useTranslation();
 
     const handleOpenModal = (type, channel = null) => setModalInfo({ type, channel });
     const handleCloseModal = () => setModalInfo({ type: null, channel: null });
@@ -16,7 +18,7 @@ const ChannelsList = () => {
     return (
         <div className="d-flex flex-column h-100">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-                <b>Каналы</b>
+                <b>{t('channels.title')}</b>
                 <Button
                     type="button"
                     variant="group-vertical"

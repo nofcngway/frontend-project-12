@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 const NotFoundPage = () => {
+  const { t } = useTranslation();
   return (
     <div>
-      такой странички нет(((
+      {t('errors.notFound')}
     </div>
   )
 };

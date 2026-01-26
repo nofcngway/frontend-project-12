@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { channelSchema } from "../../schemas/validationSchema.js";
 import { editChannel } from "../../api/channels.js";
 import { useEffect, useRef } from 'react';
+import { useTranslation } from "react-i18next";
 
 const EditChannelModal = ({ show, onHide, channel }) => {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const EditChannelModal = ({ show, onHide, channel }) => {
         .map((channel) => channel.name);
 
     const inputRef = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (show && inputRef.current) {
@@ -26,7 +28,7 @@ const EditChannelModal = ({ show, onHide, channel }) => {
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Переименовать канал</Modal.Title>
+                <Modal.Title>{t('channels.rename')}</Modal.Title>
             </Modal.Header>
 
             <Formik
@@ -54,7 +56,7 @@ const EditChannelModal = ({ show, onHide, channel }) => {
                     <Form onSubmit={handleSubmit}>
                         <Modal.Body>
                             <Form.Group controlId="name">
-                                <Form.Label visuallyHidden>Название канала</Form.Label>
+                                <Form.Label visuallyHidden>{t('channels.channelName')}</Form.Label>
                                 <Form.Control
                                     ref={inputRef}
                                     type="text"
@@ -66,21 +68,21 @@ const EditChannelModal = ({ show, onHide, channel }) => {
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    {String(errors.name)}
+                                    {t(errors.name)}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Modal.Body>
 
                         <Modal.Footer>
                             <Button variant="secondary" onClick={onHide}>
-                                Отменить
+                                {t('channels.cancel')}
                             </Button>
                             <Button
                                 variant="primary"
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                Отправить
+                                {t('channels.submit')}
                             </Button>
                         </Modal.Footer>
                     </Form>

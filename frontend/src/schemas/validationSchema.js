@@ -1,22 +1,22 @@
 import * as Yup from "yup";
 
 export const signupSchema = Yup.object({
-  username: Yup.string().min(3, 'Минимум 3 символа').max(20, 'Максимум 20 символов').required('Обязательное поле'),
-  password: Yup.string().min(6, 'Минимум 6 символов').required('Обязательное поле'),
-  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли должны совпадать').required('Обязательное поле'),
+  username: Yup.string().min(3, 'validation.username.min').max(20, 'validation.username.max').required('validation.required'),
+  password: Yup.string().min(6, 'validation.password.min').required('validation.required'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'validation.confirmPassword.match').required('validation.required'),
 })
 
 export const loginSchema = Yup.object({
-  username: Yup.string().required('Введите юзернейм'),
-  password: Yup.string().required('Введите пароль'),
+  username: Yup.string().required('validation.username.required'),
+  password: Yup.string().required('validation.password.required'),
 });
 
 export const channelSchema = (existingNames) => Yup.object({
   name: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .test('unique', 'Название канала должно быть уникальным', (value) => {
+    .min(3, 'validation.channel.length')
+    .max(20, 'validation.channel.length')
+    .test('unique', 'validation.channel.unique', (value) => {
       return !existingNames.includes(value);
     })
-    .required()
+    .required('validation.required')
 });

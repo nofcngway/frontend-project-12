@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../store/slices/authSlice.js";
 import { signupSchema } from "../schemas/validationSchema.js";
 import Alert from "react-bootstrap/Alert";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   return (
     <div>
-      <h1>Регистрация</h1>
+      <h1>{t('auth.signup.title')}</h1>
       <Formik
         initialValues={{
           username: '',
@@ -32,74 +34,74 @@ const Signup = () => {
             navigate("/");
           } catch (err) {
             if (err.response.status === 409) {
-              setStatus('Такой пользователь уже существует');
+              setStatus('auth.signup.accountExists');
             }
           } finally {
             setSubmitting(false);
           }
         }}
       >
-        {({ isSubmitting, handleSubmit, handleChange, handleBlur, values, touched, errors, status  }) => (
+        {({ isSubmitting, handleSubmit, handleChange, handleBlur, values, touched, errors, status }) => (
           <Form onSubmit={handleSubmit}>
             {status && (
               <Alert variant="danger" className="mb-3">
-                {status}
+                {t(status)}
               </Alert>
             )}
             <FloatingLabel
               controlId="floatingUsername"
-              label="Имя пользователя"
+              label={t('auth.signup.username')}
               className="mb-3"
             >
               <Form.Control
                 name="username"
                 type="text"
-                placeholder="от 3 до 20 символов"
+                placeholder={t('auth.signup.placeholders.username')}
                 value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isInvalid={touched.username && !!errors.username}
               />
               <Form.Control.Feedback type='invalid'>
-                {String(errors.username)}
+                {t(errors.username)}
               </Form.Control.Feedback>
             </FloatingLabel>
 
             <FloatingLabel
               controlId="floatingPassword"
-              label="Ваш пароль"
+              label={t('auth.signup.password')}
               className="mb-3"
             >
               <Form.Control
                 name="password"
                 type="password"
-                placeholder="Не менее 6 символов"
+                placeholder={t('auth.signup.placeholders.password')}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isInvalid={touched.password && !!errors.password}
               />
               <Form.Control.Feedback type='invalid'>
-                {String(errors.password)}
+                {t(errors.password)}
               </Form.Control.Feedback>
             </FloatingLabel>
 
             <FloatingLabel
               controlId="floatingCheckPassword"
-              label="Повторите пароль"
+              label={t('auth.signup.confirmPassword')}
               className="mb-3"
             >
               <Form.Control
                 name="confirmPassword"
                 type="password"
-                placeholder="пароли должны совпадать"
+                placeholder={t('auth.signup.placeholders.confirmPassword')}
                 value={values.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isInvalid={touched.confirmPassword && !!errors.confirmPassword}
               />
               <Form.Control.Feedback type='invalid'>
-                {String(errors.confirmPassword)}
+                {t(errors.confirmPassword)}
               </Form.Control.Feedback>
             </FloatingLabel>
 
@@ -108,7 +110,7 @@ const Signup = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              Зарегистрироваться
+              {t('auth.signup.submit')}
             </Button>
           </Form>
         )}

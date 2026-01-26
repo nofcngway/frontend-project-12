@@ -4,10 +4,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentChannel } from "../../store/slices/chatSlice";
 
+import { useTranslation } from "react-i18next";
+
 const ChannelItem = ({ channel, onOpenModal }) => {
   const dispatch = useDispatch();
   const currentChannelId = useSelector((state) => state.chat.currentChannelId);
   const isActive = channel.id === currentChannelId;
+  const { t } = useTranslation();
 
   const handleClick = () => {
     dispatch(setCurrentChannel(channel.id));
@@ -36,10 +39,10 @@ const ChannelItem = ({ channel, onOpenModal }) => {
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => onOpenModal('remove', channel)}>
-              Удалить
+              {t('channels.remove')}
             </Dropdown.Item>
             <Dropdown.Item onClick={() => onOpenModal('rename', channel)}>
-              Переименовать
+              {t('channels.rename')}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
