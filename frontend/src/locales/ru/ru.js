@@ -60,6 +60,9 @@ export default {
     submit: 'Отправить',
     delete: 'Удалить',
     channelName: 'Название канала',
+    created: 'Канал создан',
+    renamed: 'Канал переименован',
+    removed: 'Канал удалён',
   },
   messages: {
     header: '# {{channel}}',
@@ -72,5 +75,8 @@ export default {
   },
   errors: {
     notFound: 'такой странички нет(((',
+    network: 'Ошибка соединения',
+    unknown: 'Произошла неизвестная ошибка',
+    loading: 'Ошибка при загрузке данных',
   }
 }

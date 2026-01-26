@@ -4,6 +4,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import Header from "./components/Header/Header.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -16,6 +17,18 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </BrowserRouter>
   )

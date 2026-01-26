@@ -8,6 +8,7 @@ import { channelSchema } from "../../schemas/validationSchema.js";
 import { editChannel } from "../../api/channels.js";
 import { useEffect, useRef } from 'react';
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const EditChannelModal = ({ show, onHide, channel }) => {
     const dispatch = useDispatch();
@@ -45,8 +46,12 @@ const EditChannelModal = ({ show, onHide, channel }) => {
                         }));
 
                         onHide();
+
+                        toast.success(t('channels.renamed'));
                     } catch (err) {
-                        console.log(err);
+                        if (err.response) {
+                          toast.error(t('errors.unknown'));
+                        }
                     } finally {
                         setSubmitting(false);
                     }

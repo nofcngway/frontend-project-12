@@ -5,6 +5,7 @@ import { removeChannel as removeChannelAction } from '../../store/slices/chatSli
 import { removeChannel } from "../../api/channels.js";
 import { useState } from 'react';
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const RemoveChannelModal = ({ show, onHide, channelId }) => {
     const dispatch = useDispatch();
@@ -16,9 +17,14 @@ const RemoveChannelModal = ({ show, onHide, channelId }) => {
         try {
             await removeChannel(channelId);
             dispatch(removeChannelAction(channelId));
+
             onHide();
+
+            toast.success(t('channels.removed'));
         } catch (err) {
-            console.log(err);
+            if (err.response) {
+                toast.error(t('errors.unknown'));
+            }
         } finally {
             setIsSubmitting(false);
         }

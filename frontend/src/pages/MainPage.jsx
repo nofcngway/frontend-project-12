@@ -6,6 +6,8 @@ import { getChannels } from "../api/channels.js";
 import { getMessages } from "../api/messages.js";
 import { setChannels, setMessages, addMessage } from "../store/slices/chatSlice.js";
 import { socket } from "../socket.js";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import ChannelsList from "../components/Channels/ChannelsList.jsx";
 import MessagesList from "../components/Messages/MessagesList.jsx";
 import MessageForm from "../components/Messages/MessageForm.jsx";
@@ -13,6 +15,7 @@ import MessageForm from "../components/Messages/MessageForm.jsx";
 const MainPage = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -31,7 +34,9 @@ const MainPage = () => {
         dispatch(setChannels(resChannels));
         dispatch(setMessages(resMessages));
       } catch (e) {
-        console.error(e);
+        if (e.response) {
+          toast.error(t('errors.loading'));
+        }
       }
     };
 
@@ -41,7 +46,7 @@ const MainPage = () => {
       socket.off("newMessage");
       socket.disconnect();
     };
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated, t]);
 
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;

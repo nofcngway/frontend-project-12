@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { channelSchema } from "../../schemas/validationSchema.js";
 import { addChannel } from "../../api/channels.js";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AddChannelModal = ({ show, onHide }) => {
   const dispatch = useDispatch();
@@ -32,16 +33,21 @@ const AddChannelModal = ({ show, onHide }) => {
               removable: data.removable,
             }));
             dispatch(setCurrentChannel(data.id));
+
             resetForm();
             onHide();
+
+            toast.success(t('channels.created'));
           } catch (err) {
-            console.log(err);
+            if (err.response) {
+              toast.error(t('errors.unknown'));
+            }
           } finally {
             setSubmitting(false);
           }
         }}
       >
-        {({ handleSubmit, handleChange, values, errors, touched }) => (
+        {({ handleSubmit, handleChange, isSubmitting, values, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
               <Form.Group controlId="name">
