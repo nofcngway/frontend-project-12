@@ -11,7 +11,7 @@ export const addChannel = async (chanel) => {
 };
 
 export const editChannel = async (id, chanel) => {
-  const response = await api.post(`/channels/${id}`, chanel);
+  const response = await api.patch(`/channels/${id}`, chanel);
   return response.data;
 };
 

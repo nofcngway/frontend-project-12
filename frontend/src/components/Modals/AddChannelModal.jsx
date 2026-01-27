@@ -8,6 +8,7 @@ import { channelSchema } from "../../schemas/validationSchema.js";
 import { addChannel } from "../../api/channels.js";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { cleanText } from "../../utils/profanity.js";
 
 const AddChannelModal = ({ show, onHide }) => {
   const dispatch = useDispatch();
@@ -25,11 +26,13 @@ const AddChannelModal = ({ show, onHide }) => {
         initialValues={{ name: '' }}
         validationSchema={channelSchema(channelNames)}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const cleanChannelName = cleanText(values.name)
+
           try {
-            const data = await addChannel({ name: values.name });
+            const data = await addChannel({ name: cleanChannelName });
             dispatch(addNewChannel({
               id: data.id,
-              name: values.name,
+              name: cleanChannelName,
               removable: data.removable,
             }));
             dispatch(setCurrentChannel(data.id));

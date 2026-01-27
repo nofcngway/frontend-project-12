@@ -2,6 +2,7 @@ import { Form, InputGroup, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { addMessage as sendMessage } from "../../api/messages";
 import { useTranslation } from "react-i18next";
+import { cleanText } from "../../utils/profanity.js";
 
 const MessageForm = () => {
     const username = useSelector((state) => state.auth.username);
@@ -16,9 +17,10 @@ const MessageForm = () => {
 
         if (!body || !body.trim()) return;
 
+        const cleanBody = cleanText(body);
         try {
             await sendMessage({
-                body: body,
+                body: cleanBody,
                 channelId: currentChannelId,
                 username,
             });

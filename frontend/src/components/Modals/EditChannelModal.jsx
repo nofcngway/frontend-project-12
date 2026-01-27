@@ -9,6 +9,7 @@ import { editChannel } from "../../api/channels.js";
 import { useEffect, useRef } from 'react';
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import {cleanText} from "../../utils/profanity.js";
 
 const EditChannelModal = ({ show, onHide, channel }) => {
     const dispatch = useDispatch();
@@ -37,12 +38,13 @@ const EditChannelModal = ({ show, onHide, channel }) => {
                 enableReinitialize={true}
                 validationSchema={channelSchema(channelNames)}
                 onSubmit={async (values, { setSubmitting }) => {
+                    const cleanChannelName = cleanText(values.name)
                     try {
-                        await editChannel(channel.id, { name: values.name });
+                        await editChannel(channel.id, { name: cleanChannelName });
 
                         dispatch(renameChannel({
                             id: channel.id,
-                            name: values.name,
+                            name: cleanChannelName,
                         }));
 
                         onHide();
