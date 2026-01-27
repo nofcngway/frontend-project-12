@@ -5,11 +5,11 @@ import MainPage from "./pages/MainPage.jsx";
 import Header from "./components/Header/Header.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import { ToastContainer } from "react-toastify";
-import { Provider, ErrorBoundary } from '@rollbar/react'
+import { Provider, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
-  accessToken: '92a7459130b4451eb3ed25f385435763',
-  environment: 'testenv',
+  accessToken: '17c0c072af5049d8a19f9e118afe7f8c9399e1b33f676f8c83fb3850d2c702afefde4efdcbd67e7d14150f5eb8f23389',
+  environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
