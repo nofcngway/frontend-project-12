@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { Provider, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
-  accessToken: '4ad6fba7f61c47969803457a9461bbfcb4c1184692809c5da37668a2ffd2cd2d5a9ba6ef4cf412ba7d153cf8ef0ed1a1',
+  accessToken: import.meta.env.VITE_ROLLBAR_TOKEN,
   environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
