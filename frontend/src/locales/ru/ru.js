@@ -7,7 +7,7 @@ export default {
     signup: {
       title: 'Регистрация',
       username: 'Имя пользователя',
-      password: 'Ваш пароль',
+      password: 'Пароль',
       confirmPassword: 'Подтвердите пароль',
       submit: 'Зарегистрироваться',
       accountExists: 'Такой пользователь уже существует',

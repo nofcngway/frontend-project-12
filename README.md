@@ -45,7 +45,6 @@ make dev
 make build
 make start
 ```
-
 ---
 
 ## Приложение на Render
