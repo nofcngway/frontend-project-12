@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import i18n from './locales/i18n.js';
-import { I18nextProvider } from 'react-i18next';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import i18n from './locales/i18n.js'
+import { I18nextProvider } from 'react-i18next'
 import App from './App.jsx'
-import { store } from "./store/store.js";
-import { Provider } from "react-redux";
+import { store } from './store/store.js'
+import { Provider } from 'react-redux'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -15,5 +15,5 @@ createRoot(document.getElementById('root')).render(
         <App />
       </I18nextProvider>
     </StrictMode>
-  </Provider>
+  </Provider>,
 )

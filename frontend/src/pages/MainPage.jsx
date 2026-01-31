@@ -1,55 +1,56 @@
-import { useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getChannels } from "../api/channels.js";
-import { getMessages } from "../api/messages.js";
-import { setChannels, setMessages, addMessage } from "../store/slices/chatSlice.js";
-import { socket } from "../socket.js";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import ChannelsList from "../components/Channels/ChannelsList.jsx";
-import MessagesList from "../components/Messages/MessagesList.jsx";
-import MessageForm from "../components/Messages/MessageForm.jsx";
+import { useEffect } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
+import { Navigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { getChannels } from '../api/channels.js'
+import { getMessages } from '../api/messages.js'
+import { setChannels, setMessages, addMessage } from '../store/slices/chatSlice.js'
+import { socket } from '../socket.js'
+import ChannelsList from '../components/Channels/ChannelsList.jsx'
+import MessagesList from '../components/Messages/MessagesList.jsx'
+import MessageForm from '../components/Messages/MessageForm.jsx'
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const { t } = useTranslation()
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) return
 
-    socket.connect();
-    socket.on("newMessage", (payload) => {
-      dispatch(addMessage(payload));
-    });
+    socket.connect()
+    socket.on('newMessage', (payload) => {
+      dispatch(addMessage(payload))
+    })
 
     const fetchData = async () => {
       try {
         const [resChannels, resMessages] = await Promise.all([
           getChannels(),
           getMessages(),
-        ]);
-        dispatch(setChannels(resChannels));
-        dispatch(setMessages(resMessages));
-      } catch (e) {
+        ])
+        dispatch(setChannels(resChannels))
+        dispatch(setMessages(resMessages))
+      }
+      catch (e) {
         if (e.response) {
-          toast.error(t('errors.loading'));
+          toast.error(t('errors.loading'))
         }
       }
-    };
+    }
 
-    fetchData();
+    fetchData()
 
     return () => {
-      socket.off("newMessage");
-      socket.disconnect();
-    };
-  }, [dispatch, isAuthenticated, t]);
+      socket.off('newMessage')
+      socket.disconnect()
+    }
+  }, [dispatch, isAuthenticated, t])
 
   if (!isAuthenticated) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to="/login" />
   }
 
   return (
@@ -67,7 +68,7 @@ const MainPage = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage

@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from 'yup'
 
 export const signupSchema = Yup.object({
   username: Yup.string().min(3, 'validation.username.min').max(20, 'validation.username.max').required('validation.required'),
@@ -9,14 +9,14 @@ export const signupSchema = Yup.object({
 export const loginSchema = Yup.object({
   username: Yup.string().required('validation.username.required'),
   password: Yup.string().required('validation.password.required'),
-});
+})
 
-export const channelSchema = (existingNames) => Yup.object({
+export const channelSchema = existingNames => Yup.object({
   name: Yup.string()
     .min(3, 'validation.channel.length')
     .max(20, 'validation.channel.length')
     .test('unique', 'validation.channel.unique', (value) => {
-      return !existingNames.includes(value);
+      return !existingNames.includes(value)
     })
-    .required('validation.required')
-});
+    .required('validation.required'),
+})

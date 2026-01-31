@@ -1,20 +1,20 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Formik } from "formik";
-import Form from "react-bootstrap/Form";
-import { addNewChannel, setCurrentChannel } from '../../store/slices/chatSlice.js';
-import { useDispatch, useSelector } from "react-redux";
-import { channelSchema } from "../../schemas/validationSchema.js";
-import { addChannel } from "../../api/channels.js";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { cleanText } from "../../utils/profanity.js";
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import { Formik } from 'formik'
+import Form from 'react-bootstrap/Form'
+import { addNewChannel, setCurrentChannel } from '../../store/slices/chatSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { channelSchema } from '../../schemas/validationSchema.js'
+import { addChannel } from '../../api/channels.js'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { cleanText } from '../../utils/profanity.js'
 
 const AddChannelModal = ({ show, onHide }) => {
-  const dispatch = useDispatch();
-  const channels = useSelector(state => state.chat.channels);
-  const channelNames = channels.map((channel) => channel.name);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const channels = useSelector(state => state.chat.channels)
+  const channelNames = channels.map(channel => channel.name)
+  const { t } = useTranslation()
 
   return (
     <Modal show={show} onHide={onHide}>
@@ -29,24 +29,26 @@ const AddChannelModal = ({ show, onHide }) => {
           const cleanChannelName = cleanText(values.name)
 
           try {
-            const data = await addChannel({ name: cleanChannelName });
+            const data = await addChannel({ name: cleanChannelName })
             dispatch(addNewChannel({
               id: data.id,
               name: cleanChannelName,
               removable: data.removable,
-            }));
-            dispatch(setCurrentChannel(data.id));
+            }))
+            dispatch(setCurrentChannel(data.id))
 
-            resetForm();
-            onHide();
+            resetForm()
+            onHide()
 
-            toast.success(t('channels.created'));
-          } catch (err) {
+            toast.success(t('channels.created'))
+          }
+          catch (err) {
             if (err.response) {
-              toast.error(t('errors.unknown'));
+              toast.error(t('errors.unknown'))
             }
-          } finally {
-            setSubmitting(false);
+          }
+          finally {
+            setSubmitting(false)
           }
         }}
       >
@@ -86,7 +88,7 @@ const AddChannelModal = ({ show, onHide }) => {
         )}
       </Formik>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddChannelModal;
+export default AddChannelModal

@@ -11,24 +11,28 @@ export default {
       confirmPassword: 'Повторите пароль',
       submit: 'Зарегистрироваться',
       accountExists: 'Такой пользователь уже существует',
+      error: 'Ошибка при регистрации. Попробуйте еще раз',
       placeholders: {
         username: 'от 3 до 20 символов',
         password: 'Не менее 6 символов',
         confirmPassword: 'пароли должны совпадать',
-      }
+      },
     },
     login: {
       title: 'Войти',
-      username: 'Ваш никнейм',
+      username: 'Ваш ник',
       password: 'Пароль',
-      submit: 'Отправить',
-      authFailed: 'Неверный логин или пароль',
+      submit: 'Войти',
+      authFailed: 'Неверные имя пользователя или пароль',
+      error: 'Ошибка при входе. Попробуйте еще раз',
       noAccount: 'Нет аккаунта?',
       toSignup: 'Регистрация',
+      alreadyRegistered: 'Есть аккаунт?',
+      toLogin: 'Войти',
       placeholders: {
-        username: 'username',
-        password: 'Password',
-      }
+        username: 'Ваш ник',
+        password: 'Пароль',
+      },
     },
   },
   validation: {
@@ -48,7 +52,7 @@ export default {
     channel: {
       length: 'От 3 до 20 символов',
       unique: 'Название канала должно быть уникальным',
-    }
+    },
   },
   channels: {
     title: 'Каналы',
@@ -78,5 +82,5 @@ export default {
     network: 'Ошибка соединения',
     unknown: 'Произошла неизвестная ошибка',
     loading: 'Ошибка при загрузке данных',
-  }
+  },
 }

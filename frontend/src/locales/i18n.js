@@ -1,11 +1,11 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 import ru from './ru/ru.js'
 
 const resources = {
   ru: {
     translation: ru,
-  }
+  },
 }
 
 i18n
@@ -20,4 +20,4 @@ i18n
     },
   })
 
-export default i18n;
+export default i18n

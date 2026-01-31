@@ -1,50 +1,50 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   channels: [],
   messages: [],
   currentChannelId: null,
-};
+}
 
 const chatSlice = createSlice({
-  name: "chat",
+  name: 'chat',
   initialState,
   reducers: {
     setChannels: (state, action) => {
-      state.channels = action.payload;
+      state.channels = action.payload
       if (state.currentChannelId === null && action.payload.length > 0) {
-        state.currentChannelId = action.payload[0].id;
+        state.currentChannelId = action.payload[0].id
       }
     },
     setCurrentChannel: (state, action) => {
-      state.currentChannelId = action.payload;
+      state.currentChannelId = action.payload
     },
     addNewChannel: (state, action) => {
-      state.channels.push(action.payload);
+      state.channels.push(action.payload)
     },
     removeChannel: (state, action) => {
-      const channelId = action.payload;
-      state.channels = state.channels.filter((channel) => channel.id !== channelId);
-      state.messages = state.messages.filter((message) => message.channelId !== channelId);
+      const channelId = action.payload
+      state.channels = state.channels.filter(channel => channel.id !== channelId)
+      state.messages = state.messages.filter(message => message.channelId !== channelId)
       if (state.currentChannelId === channelId) {
-        state.currentChannelId = '1';
+        state.currentChannelId = '1'
       }
     },
     renameChannel: (state, action) => {
-      const { id, name } = action.payload;
-      const channel = state.channels.find((channel) => channel.id === id);
+      const { id, name } = action.payload
+      const channel = state.channels.find(channel => channel.id === id)
       if (channel) {
-        channel.name = name;
+        channel.name = name
       }
     },
     setMessages: (state, action) => {
-      state.messages = action.payload;
+      state.messages = action.payload
     },
     addMessage: (state, action) => {
-      state.messages.push(action.payload);
+      state.messages.push(action.payload)
     },
   },
-});
+})
 
 export const {
   setChannels,
@@ -54,5 +54,5 @@ export const {
   addMessage,
   removeChannel,
   renameChannel,
-} = chatSlice.actions;
-export default chatSlice.reducer;
+} = chatSlice.actions
+export default chatSlice.reducer
