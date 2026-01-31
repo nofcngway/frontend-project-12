@@ -51,7 +51,7 @@ const RemoveChannelModal = ({ show, onHide, channelId }) => {
           onClick={handleDelete}
           disabled={isSubmitting}
         >
-          {t('channels.delete')}
+          {t('channels.remove')}
         </Button>
       </Modal.Footer>
     </Modal>

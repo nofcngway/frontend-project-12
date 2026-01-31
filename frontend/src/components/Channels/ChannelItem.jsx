@@ -35,7 +35,9 @@ const ChannelItem = ({ channel, onOpenModal }) => {
             variant={isActive ? 'secondary' : ''}
             className="rounded-0"
             id={`dropdown-split-${channel.id}`}
-          />
+          >
+            <span className="visually-hidden">{t('channels.manage')}</span>
+          </Dropdown.Toggle>
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => onOpenModal('remove', channel)}>

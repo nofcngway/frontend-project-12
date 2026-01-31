@@ -9,4 +9,8 @@ build:
 	npm run build
 
 dev:
-	cd frontend && npm run dev
+	npm run dev --prefix frontend
+
+lint:
+	npm run lint --prefix frontend
+
