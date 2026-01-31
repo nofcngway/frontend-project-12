@@ -38,12 +38,12 @@ export default {
   validation: {
     required: 'Обязательное поле',
     username: {
-      min: 'Минимум 3 символа',
-      max: 'Максимум 20 символов',
+      min: 'От 3 до 20 символов',
+      max: 'От 3 до 20 символов',
       required: 'Введите юзернейм',
     },
     password: {
-      min: 'Минимум 6 символов',
+      min: 'Не менее 6 символов',
       required: 'Введите пароль',
     },
     confirmPassword: {
