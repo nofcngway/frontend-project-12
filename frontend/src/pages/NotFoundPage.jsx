@@ -13,7 +13,8 @@ const NotFoundPage = () => {
               <div className="display-1 fw-bold text-primary mb-3">404</div>
               <h2 className="mb-4 text-secondary">{t('errors.notFound')}</h2>
               <p className="lead text-muted mb-4">
-                {t('errors.notFoundMessage')}{' '}
+                {t('errors.notFoundMessage')}
+                {' '}
                 <Link to="/">
                   {t('errors.homeLink')}
                 </Link>
