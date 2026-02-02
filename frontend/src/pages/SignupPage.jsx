@@ -17,6 +17,29 @@ const Signup = () => {
     return <Navigate to="/" />
   }
 
+  const onSubmit = async (values, { setSubmitting, setStatus }) => {
+    setStatus(null)
+    try {
+      const data = await signupUser(values.username, values.password)
+      dispatch(setCredentials({
+        token: data.token,
+        username: values.username,
+      }))
+      navigate('/')
+    }
+    catch (err) {
+      if (err?.response?.status === 409) {
+        setStatus('auth.signup.accountExists')
+      }
+      else {
+        setStatus('auth.signup.error')
+      }
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -30,28 +53,7 @@ const Signup = () => {
                   confirmPassword: '',
                 }}
                 validationSchema={signupSchema}
-                onSubmit={async (values, { setSubmitting, setStatus }) => {
-                  setStatus(null)
-                  try {
-                    const data = await signupUser(values.username, values.password)
-                    dispatch(setCredentials({
-                      token: data.token,
-                      username: values.username,
-                    }))
-                    navigate('/')
-                  }
-                  catch (err) {
-                    if (err?.response?.status === 409) {
-                      setStatus('auth.signup.accountExists')
-                    }
-                    else {
-                      setStatus('auth.signup.error')
-                    }
-                  }
-                  finally {
-                    setSubmitting(false)
-                  }
-                }}
+                onSubmit={onSubmit}
               >
                 {({ isSubmitting, errors, touched, status }) => (
                   <FormikForm>

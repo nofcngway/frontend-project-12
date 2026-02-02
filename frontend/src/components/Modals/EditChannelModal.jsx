@@ -27,6 +27,30 @@ const EditChannelModal = ({ show, onHide, channel }) => {
     }
   }, [show])
 
+  const onSubmit = async (values, { setSubmitting }) => {
+    const cleanChannelName = cleanText(values.name)
+    try {
+      await editChannel(channel.id, { name: cleanChannelName })
+
+      dispatch(renameChannel({
+        id: channel.id,
+        name: cleanChannelName,
+      }))
+
+      onHide()
+
+      toast.success(t('channels.renamed'))
+    }
+    catch (err) {
+      if (err.response) {
+        toast.error(t('errors.unknown'))
+      }
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -37,29 +61,7 @@ const EditChannelModal = ({ show, onHide, channel }) => {
         initialValues={{ name: channel?.name || '' }}
         enableReinitialize={true}
         validationSchema={channelSchema(channelNames)}
-        onSubmit={async (values, { setSubmitting }) => {
-          const cleanChannelName = cleanText(values.name)
-          try {
-            await editChannel(channel.id, { name: cleanChannelName })
-
-            dispatch(renameChannel({
-              id: channel.id,
-              name: cleanChannelName,
-            }))
-
-            onHide()
-
-            toast.success(t('channels.renamed'))
-          }
-          catch (err) {
-            if (err.response) {
-              toast.error(t('errors.unknown'))
-            }
-          }
-          finally {
-            setSubmitting(false)
-          }
-        }}
+        onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, values, isSubmitting, errors, touched }) => (
           <Form onSubmit={handleSubmit}>

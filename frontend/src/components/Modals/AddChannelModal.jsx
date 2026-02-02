@@ -16,6 +16,33 @@ const AddChannelModal = ({ show, onHide }) => {
   const channelNames = channels.map(channel => channel.name)
   const { t } = useTranslation()
 
+  const onSubmit = async (values, { setSubmitting, resetForm }) => {
+    const cleanChannelName = cleanText(values.name)
+
+    try {
+      const data = await addChannel({ name: cleanChannelName })
+      dispatch(addNewChannel({
+        id: data.id,
+        name: cleanChannelName,
+        removable: data.removable,
+      }))
+      dispatch(setCurrentChannel(data.id))
+
+      resetForm()
+      onHide()
+
+      toast.success(t('channels.created'))
+    }
+    catch (err) {
+      if (err.response) {
+        toast.error(t('errors.unknown'))
+      }
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -25,32 +52,7 @@ const AddChannelModal = ({ show, onHide }) => {
       <Formik
         initialValues={{ name: '' }}
         validationSchema={channelSchema(channelNames)}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const cleanChannelName = cleanText(values.name)
-
-          try {
-            const data = await addChannel({ name: cleanChannelName })
-            dispatch(addNewChannel({
-              id: data.id,
-              name: cleanChannelName,
-              removable: data.removable,
-            }))
-            dispatch(setCurrentChannel(data.id))
-
-            resetForm()
-            onHide()
-
-            toast.success(t('channels.created'))
-          }
-          catch (err) {
-            if (err.response) {
-              toast.error(t('errors.unknown'))
-            }
-          }
-          finally {
-            setSubmitting(false)
-          }
-        }}
+        onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, isSubmitting, values, errors, touched }) => (
           <Form onSubmit={handleSubmit}>

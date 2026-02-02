@@ -17,6 +17,29 @@ const LoginPage = () => {
     return <Navigate to="/" />
   }
 
+  const onSubmit = async (values, { setSubmitting, setStatus }) => {
+    setStatus(null)
+    try {
+      const data = await loginUser(values.username, values.password)
+      dispatch(setCredentials({
+        token: data.token,
+        username: values.username,
+      }))
+      navigate('/')
+    }
+    catch (err) {
+      if (err?.response?.status === 401) {
+        setStatus('auth.login.authFailed')
+      }
+      else {
+        setStatus('auth.login.error')
+      }
+    }
+    finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -29,28 +52,7 @@ const LoginPage = () => {
                   password: '',
                 }}
                 validationSchema={loginSchema}
-                onSubmit={async (values, { setSubmitting, setStatus }) => {
-                  setStatus(null)
-                  try {
-                    const data = await loginUser(values.username, values.password)
-                    dispatch(setCredentials({
-                      token: data.token,
-                      username: values.username,
-                    }))
-                    navigate('/')
-                  }
-                  catch (err) {
-                    if (err?.response?.status === 401) {
-                      setStatus('auth.login.authFailed')
-                    }
-                    else {
-                      setStatus('auth.login.error')
-                    }
-                  }
-                  finally {
-                    setSubmitting(false)
-                  }
-                }}
+                onSubmit={onSubmit}
               >
                 {({ isSubmitting, errors, touched, status }) => (
                   <FormikForm>
